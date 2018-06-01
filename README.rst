@@ -4,6 +4,14 @@ django-link-shortener
 
 .. image:: https://travis-ci.org/ronaldgrn/django-link-shortener.svg?branch=master
     :target: https://travis-ci.org/ronaldgrn/django-link-shortener
+    
+.. image:: https://img.shields.io/pypi/l/django-link-shortener.svg
+    :alt: PyPI - License
+    :target: https://pypi.org/project/django-link-shortener/
+
+.. image:: https://img.shields.io/pypi/v/django-link-shortener.svg
+    :alt: PyPI
+    :target: https://pypi.org/project/django-link-shortener/
 
 django-link-shortener is a simple time and usage sensitive url shortening app.
 
@@ -15,11 +23,7 @@ Requires user to be logged in for link creation.
 Usage
 -----
     
-1. pip install git+git://github.com/ronaldgrn/django-link-shortener.git#egg=django-link-shortener
-   
-   or
-   
-   pip install --user django-link-shortener/dist/django-link-shortener-0.1.tar.gz
+1. pip install django-link-shortener
    
 2. Add "shortener" to your INSTALLED_APPS setting like this::
 
