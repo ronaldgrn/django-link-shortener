@@ -4,10 +4,6 @@ from datetime import datetime, timedelta
 
 
 # Create your models here.
-def get_expiry():
-    return datetime.now() + timedelta(seconds=120)
-
-
 class UrlMap(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     full_url = models.CharField(max_length=256)
@@ -16,7 +12,7 @@ class UrlMap(models.Model):
     max_count = models.IntegerField(default=-1)
     lifespan = models.IntegerField(default=-1)
     date_created = models.DateTimeField(auto_now_add=True)
-    date_expired = models.DateTimeField(default=get_expiry)
+    date_expired = models.DateTimeField()
 
     def __str__(self):
         return self.full_url
@@ -25,9 +21,9 @@ class UrlMap(models.Model):
 class UrlProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     enabled = models.BooleanField(default=True)
-    url_count = models.IntegerField(default=0)
     max_urls = models.IntegerField(default=-1)
     max_concurrent_urls = models.IntegerField(default=100)
 
     # TODO: Lifespan from SETTINGS
     default_lifespan = models.IntegerField(default=120)
+    default_max_uses = models.IntegerField(default=-1)

@@ -10,7 +10,7 @@ shortener/__init__.py
 shortener/admin.py
 shortener/apps.py
 shortener/models.py
-shortener/shortern.py
+shortener/shortener.py
 shortener/tests.py
 shortener/urls.py
 shortener/views.py

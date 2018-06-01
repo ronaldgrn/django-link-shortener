@@ -26,7 +26,12 @@ Quick start
 
 4. Run `python manage.py migrate` to create the shortener models.
 
-5. Start the development server and visit http://127.0.0.1:8000/s/
-   to create a test link
+5. Start the development server and visit http://127.0.0.1:8000/s/test/<My-URL-HERE>
+   to create a test link.
+
+   or
+
+   Use shortener.create(user, link) to generate a link via code. Use shortener.expand(link)
+   to revert
 
 6. Visit http://127.0.0.1:8000/<insert_test_code_here>/ to be redirected
