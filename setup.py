@@ -15,9 +15,11 @@ setup(
     license='MIT License',
     description='A simple Django Link Shortener.',
     long_description=README,
-    url='https://www.example.com/',
+    url='https://github.com/ronaldgrn/django-link-shortener',
+    download_url='https://github.com/ronaldgrn/django-link-shortener/archive/0.2.tar.gz',
     author='Petronald Green',
     author_email='petronaldgreen@gmail.com',
+    keywords = ['url shortener', 'link shortener'],
     classifiers=[
         'Environment :: Web Environment',
         'Framework :: Django',
