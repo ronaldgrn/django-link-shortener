@@ -2,6 +2,9 @@
 django-link-shortener
 =====================
 
+.. image:: https://travis-ci.org/ronaldgrn/django-link-shortener.svg?branch=master
+    :target: https://travis-ci.org/ronaldgrn/django-link-shortener
+
 django-link-shortener is a simple time and usage sensitive url shortening app.
 
 Uses A-Za-z0-9 with the exception of I, i and 1.
