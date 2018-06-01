@@ -2,10 +2,15 @@
 django-link-shortener
 =====================
 
-django-link-shortener is a simple time and usage sensitive url shortening app
+django-link-shortener is a simple time and usage sensitive url shortening app.
 
-Quick start
------------
+Uses A-Za-z0-9 with the exception of I, i and 1.
+
+Requires user to be logged in for link creation.
+
+
+Usage
+-----
     
 1. pip install git+git://github.com/ronaldgrn/django-link-shortener.git#egg=django-link-shortener
    
@@ -27,11 +32,77 @@ Quick start
 4. Run `python manage.py migrate` to create the shortener models.
 
 5. Start the development server and visit http://127.0.0.1:8000/s/test/<My-URL-HERE>
-   to create a test link.
+   to create a test shortcode.
 
    or
 
    Use shortener.create(user, link) to generate a link via code. Use shortener.expand(link)
    to revert
 
-6. Visit http://127.0.0.1:8000/<insert_test_code_here>/ to be redirected
+6. Visit http://127.0.0.1:8000/s/<shortcode>/ to be redirected
+
+Configuration Options
+---------------------
+Place in settings.py. Can be overridden on a per-user basis using UrlProfile
+
+SHORTENER_ENABLED
+  Default: True
+  
+  Controls if users can use the shortener by default. 
+  
+SHORTENER_MAX_URLS
+  Default: -1
+  
+  Controls the default maximum limit of generated urls per account. 
+  -1 sets infinite.
+  
+SHORTENER_MAX_CONCURRENT
+  Default: -1
+  
+  Controls the default maximum limit of *concurrent* (active) generated urls per account.
+  -1 sets infinite
+
+SHORTENER_LIFESPAN
+  Default: -1
+  
+  Sets the default lifespan of links in seconds
+  -1 sets infinite
+  
+SHORTENER_MAX_USES
+  Default: -1
+  
+  Sets the default amount of times a link can be followed
+  -1 sets infinite
+  
+SHORTENER_LENGTH
+  Default: 5
+  
+  Note: Omitted from UrlProfile
+  
+  Sets how many digits should be used for links. 
+  Tries up to three times to generate a unique shortcode where
+  Each failure will result in length temporaily being increased by 1.
+
+
+Common Use Cases
+----------------
+goo.gl type usage. Unlimited links for an unlimited length of time
+
+::
+
+  SHORTENER_ENABLED = True
+  SHORTENER_MAX_URLS = -1
+  SHORTENER_MAX_CONCURRENT = -1
+  SHORTENER_LIFESPAN = -1
+  SHORTENER_MAX_USES = -1
+  
+  
+Internal temporary link usage (such as on nodeferret.com). 100 Temp links per minute. 1 usage.
+
+::
+
+  SHORTENER_ENABLED = True
+  SHORTENER_MAX_URLS = -1
+  SHORTENER_MAX_CONCURRENT = 100 # To prevent spamming
+  SHORTENER_LIFESPAN = 600
+  SHORTENER_MAX_USES = 1
