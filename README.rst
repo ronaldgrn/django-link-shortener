@@ -43,9 +43,9 @@ Testing
 -------
 1. Add the following to settings
 
-'''
+```
 SHORTENER_ENABLE_TEST_PATH = True
-'''
+```
 
 1. Start the development server and visit http://127.0.0.1:8000/s/test/<My-URL-HERE>
    to create a test shortcode.
@@ -103,6 +103,7 @@ SHORTENER_ENABLE_TEST_PATH
   Default: False
 
   If true, creates shortlinks for logged in users at s/test/<<url>>/
+
   The response is the shortcode to use used at s/<<shortcode>>
 
 
