@@ -38,7 +38,16 @@ Usage
 
 4. Run `python manage.py migrate` to create the shortener models.
 
-5. Start the development server and visit http://127.0.0.1:8000/s/test/<My-URL-HERE>
+
+Testing
+-------
+1. Add the following to settings
+
+'''
+SHORTENER_ENABLE_TEST_PATH = True
+'''
+
+1. Start the development server and visit http://127.0.0.1:8000/s/test/<My-URL-HERE>
    to create a test shortcode.
 
    or
@@ -50,12 +59,12 @@ Usage
 
 Configuration Options
 ---------------------
-Place in settings.py. Can be overridden on a per-user basis using UrlProfile
+Place in settings.py. Each setting be overridden on a per-user basis using the admin UrlProfile section
 
 SHORTENER_ENABLED
   Default: True
   
-  Controls if users can use the shortener by default. 
+  Controls whether users without a shortener profile can create shortlinks.
   
 SHORTENER_MAX_URLS
   Default: -1
@@ -90,10 +99,16 @@ SHORTENER_LENGTH
   Tries up to three times to generate a unique shortcode where
   Each failure will result in length temporaily being increased by 1.
 
+SHORTENER_ENABLE_TEST_PATH
+  Default: False
+
+  If true, creates shortlinks for logged in users at s/test/<<url>>/
+  The response is the shortcode to use used at s/<<shortcode>>
+
 
 Common Use Cases
 ----------------
-goo.gl type usage. Unlimited links for an unlimited length of time
+goo.gl type usage (default). Unlimited concurrent links for an unlimited length of time
 
 ::
 
@@ -104,7 +119,7 @@ goo.gl type usage. Unlimited links for an unlimited length of time
   SHORTENER_MAX_USES = -1
   
   
-Internal temporary link usage (such as on nodeferret.com). 100 Temp links per minute. 1 usage.
+Internal temporary link usage (such as on nodeferret.com). 100 Temp links per minute. 1 usage per link.
 
 ::
 

@@ -5,18 +5,11 @@ from datetime import timedelta
 from django.utils import timezone
 
 import random
-import string
 
 
 def get_random(tries=0):
-    if hasattr(settings, 'SHORTENER_LENGTH'):
-        length = settings.SHORTENER_LENGTH
-    else:
-        length = 5
-
+    length = getattr(settings, 'SHORTENER_LENGTH', 5)
     length += tries
-
-    # return ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(length))
 
     # Removed l, I, 1
     dictionary = "ABCDEFGHJKLMNOPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz234567890"
@@ -33,36 +26,18 @@ def create(user, link):
         max_concurrent = p.max_concurrent_urls
         lifespan = p.default_lifespan
         max_uses = p.default_max_uses
+
     except UrlProfile.DoesNotExist:
         # Use defaults from settings
-        if hasattr(settings, 'SHORTENER_ENABLED'):
-            enabled = settings.SHORTENER_ENABLED
-        else:
-            enabled = True
-
-        if hasattr(settings, 'SHORTENER_MAX_URLS'):
-            max_urls = settings.SHORTENER_MAX_URLS
-        else:
-            max_urls = -1
-
-        if hasattr(settings, 'SHORTENER_MAX_CONCURRENT'):
-            max_concurrent = settings.SHORTENER_MAX_CONCURRENT
-        else:
-            max_concurrent = -1
-
-        if hasattr(settings, 'SHORTENER_LIFESPAN'):
-            lifespan = settings.SHORTENER_LIFESPAN
-        else:
-            lifespan = -1
-
-        if hasattr(settings, 'SHORTENER_MAX_USES'):
-            max_uses = settings.SHORTENER_MAX_USES
-        else:
-            max_uses = -1
+        enabled = getattr(settings, 'SHORTENER_ENABLED', True)
+        max_urls = getattr(settings, 'SHORTENER_MAX_URLS', -1)
+        max_concurrent = getattr(settings, 'SHORTENER_MAX_CONCURRENT', -1)
+        lifespan = getattr(settings, 'SHORTENER_LIFESPAN', -1)
+        max_uses = getattr(settings, 'SHORTENER_MAX_USES', -1)
 
     # Ensure User is allowed to create
     if not enabled:
-        raise PermissionError("User not allowed to access create")
+        raise PermissionError("not authorized to create shortlinks")
 
     # Expiry date, -1 to disable
     if lifespan != -1:
@@ -73,12 +48,12 @@ def create(user, link):
     # Ensure user has not met max_urls quota
     if max_urls != -1:
         if UrlMap.objects.filter(user=user).count() >= max_urls:
-            raise PermissionError("User has met url quota")
+            raise PermissionError("url quota exceeded")
 
     # Ensure user has not met concurrent urls quota
     if max_concurrent != -1:
-        if UrlMap.objects.filter(user=user, date_expired__gt=datetime.now()).count() >= max_concurrent:
-            raise PermissionError("User has met concurrent quota")
+        if UrlMap.objects.filter(user=user, date_expired__gt=timezone.now()).count() >= max_concurrent:
+            raise PermissionError("concurrent quota exceeded")
 
     # Try up to three times to generate a random number without duplicates.
     # Each time increase the number of allowed characters
@@ -98,18 +73,18 @@ def expand(link):
     try:
         url = UrlMap.objects.get(short_url__exact=link)
     except UrlMap.DoesNotExist:
-        raise KeyError("ShortLink Not found")
+        raise KeyError("invalid shortlink")
 
     # ensure we are within usage counts
     if url.max_count != -1:
-        if url.max_count > url.usage_count:
-            raise PermissionError("Max usages reached")
+        if url.max_count <= url.usage_count:
+            raise PermissionError("max usages for link reached")
 
     # ensure we are within allowed datetime
-    print(timezone.now())
-    print(url.date_expired)
+    # print(timezone.now())
+    # print(url.date_expired)
     if timezone.now() > url.date_expired:
-        raise PermissionError("Link Expired")
+        raise PermissionError("shortlink expired")
 
     url.usage_count += 1
     url.save()
