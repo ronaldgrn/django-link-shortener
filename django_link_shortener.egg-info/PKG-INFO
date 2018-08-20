@@ -1,6 +1,6 @@
 Metadata-Version: 1.1
 Name: django-link-shortener
-Version: 0.2
+Version: 0.3
 Summary: A simple Django Link Shortener.
 Home-page: https://github.com/ronaldgrn/django-link-shortener
 Author: Petronald Green
@@ -10,6 +10,17 @@ Download-URL: https://github.com/ronaldgrn/django-link-shortener/archive/0.2.tar
 Description: =====================
         django-link-shortener
         =====================
+        
+        .. image:: https://travis-ci.org/ronaldgrn/django-link-shortener.svg?branch=master
+            :target: https://travis-ci.org/ronaldgrn/django-link-shortener
+            
+        .. image:: https://img.shields.io/pypi/l/django-link-shortener.svg
+            :alt: PyPI - License
+            :target: https://pypi.org/project/django-link-shortener/
+        
+        .. image:: https://img.shields.io/pypi/v/django-link-shortener.svg
+            :alt: PyPI
+            :target: https://pypi.org/project/django-link-shortener/
         
         django-link-shortener is a simple time and usage sensitive url shortening app.
         
@@ -21,11 +32,7 @@ Description: =====================
         Usage
         -----
             
-        1. pip install git+git://github.com/ronaldgrn/django-link-shortener.git#egg=django-link-shortener
-           
-           or
-           
-           pip install --user django-link-shortener/dist/django-link-shortener-0.1.tar.gz
+        1. pip install django-link-shortener
            
         2. Add "shortener" to your INSTALLED_APPS setting like this::
         
@@ -40,7 +47,16 @@ Description: =====================
         
         4. Run `python manage.py migrate` to create the shortener models.
         
-        5. Start the development server and visit http://127.0.0.1:8000/s/test/<My-URL-HERE>
+        
+        Testing
+        -------
+        1. Add the following to settings
+        
+        ```
+        SHORTENER_ENABLE_TEST_PATH = True
+        ```
+        
+        1. Start the development server and visit http://127.0.0.1:8000/s/test/<My-URL-HERE>
            to create a test shortcode.
         
            or
@@ -52,12 +68,12 @@ Description: =====================
         
         Configuration Options
         ---------------------
-        Place in settings.py. Can be overridden on a per-user basis using UrlProfile
+        Place in settings.py. Each setting be overridden on a per-user basis using the admin UrlProfile section
         
         SHORTENER_ENABLED
           Default: True
           
-          Controls if users can use the shortener by default. 
+          Controls whether users without a shortener profile can create shortlinks.
           
         SHORTENER_MAX_URLS
           Default: -1
@@ -92,10 +108,17 @@ Description: =====================
           Tries up to three times to generate a unique shortcode where
           Each failure will result in length temporaily being increased by 1.
         
+        SHORTENER_ENABLE_TEST_PATH
+          Default: False
+        
+          If true, creates shortlinks for logged in users at s/test/<<url>>/
+        
+          The response is the shortcode to use used at s/<<shortcode>>
+        
         
         Common Use Cases
         ----------------
-        goo.gl type usage. Unlimited links for an unlimited length of time
+        goo.gl type usage (default). Unlimited concurrent links for an unlimited length of time
         
         ::
         
@@ -106,7 +129,7 @@ Description: =====================
           SHORTENER_MAX_USES = -1
           
           
-        Internal temporary link usage (such as on nodeferret.com). 100 Temp links per minute. 1 usage.
+        Internal temporary link usage (such as on nodeferret.com). 100 Temp links per minute. 1 usage per link.
         
         ::
         
