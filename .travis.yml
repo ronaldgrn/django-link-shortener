@@ -17,4 +17,8 @@ install:
   - python manage.py makemigrations
   
 script: 
-  - python manage.py test
+  - coverage run --source='shortener' manage.py test
+
+after_script:
+  - pip install coveralls
+  - coveralls

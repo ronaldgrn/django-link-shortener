@@ -2,3 +2,4 @@
 venv
 db.*
 tests/testapp/migrations/0*
+.coverage
