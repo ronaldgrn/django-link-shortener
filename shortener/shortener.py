@@ -1,7 +1,7 @@
 from shortener.models import UrlMap, UrlProfile
 from django.conf import settings
 from django.db import IntegrityError
-from datetime import datetime, timedelta
+from datetime import timedelta
 from django.utils import timezone
 
 import random
@@ -66,9 +66,9 @@ def create(user, link):
 
     # Expiry date, -1 to disable
     if lifespan != -1:
-        expiry_date = datetime.now() + timedelta(seconds=lifespan)
+        expiry_date = timezone.now() + timedelta(seconds=lifespan)
     else:
-        expiry_date = datetime.max
+        expiry_date = timezone.make_aware(timezone.datetime.max, timezone.get_default_timezone())
 
     # Ensure user has not met max_urls quota
     if max_urls != -1:
@@ -106,7 +106,7 @@ def expand(link):
             raise PermissionError("Max usages reached")
 
     # ensure we are within allowed datetime
-    print(datetime.now())
+    print(timezone.now())
     print(url.date_expired)
     if timezone.now() > url.date_expired:
         raise PermissionError("Link Expired")
