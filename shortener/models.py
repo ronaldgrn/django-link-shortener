@@ -1,11 +1,11 @@
 from django.db import models
-from django.contrib.auth.models import User
+from django.conf import settings
 from datetime import datetime, timedelta
 
 
 # Create your models here.
 class UrlMap(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     full_url = models.CharField(max_length=256)
     short_url = models.CharField(max_length=50, unique=True, db_index=True)
     usage_count = models.IntegerField(default=0)
@@ -19,7 +19,7 @@ class UrlMap(models.Model):
 
 
 class UrlProfile(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     enabled = models.BooleanField(default=True)
     max_urls = models.IntegerField(default=-1)
     max_concurrent_urls = models.IntegerField(default=100)

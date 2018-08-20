@@ -5,8 +5,11 @@ from shortener import shortener
 
 # Create your views here.
 def test(request, link):
-    data = shortener.create(request.user, link)
-    return HttpResponse(data)
+    if request.user.is_authenticated:
+        data = shortener.create(request.user, link)
+        return HttpResponse(data)
+    else:
+        return HttpResponse('unauthorized')
 
 
 def expand(request, link):
