@@ -18,7 +18,7 @@ class Migration(migrations.Migration):
             name='UrlMap',
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('full_url', models.CharField(max_length=256)),
+                ('full_url', models.TextField(null=True,blank=True)),
                 ('short_url', models.CharField(db_index=True, max_length=50, unique=True)),
                 ('usage_count', models.IntegerField(default=0)),
                 ('max_count', models.IntegerField(default=-1)),
