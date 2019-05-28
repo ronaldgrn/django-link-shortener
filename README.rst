@@ -133,3 +133,23 @@ Internal temporary link usage (such as on nodeferret.com). 100 Temp links per mi
   SHORTENER_MAX_CONCURRENT = 100 # To prevent spamming
   SHORTENER_LIFESPAN = 600
   SHORTENER_MAX_USES = 1
+
+
+Changelog
+---------
+
+**v0.4**
+
+- Allow null values in UrlProfile; null fields will use global values
+- str representation of UrlProfile in admin
+- add user to str representation of UrlMap
+
+Upgrade Instructions
+--------------------
+
+**0.3 -> 0.4**
+
+::
+
+  pip install django-link-shortener==0.4
+  python manage.py migrate
