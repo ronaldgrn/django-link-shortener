@@ -9,14 +9,13 @@ os.chdir(os.path.normpath(os.path.join(os.path.abspath(__file__), os.pardir)))
 
 setup(
     name='django-link-shortener',
-    version='0.3',
+    version='0.4',
     packages=['shortener'],
     include_package_data=True,
     license='MIT License',
     description='A simple Django Url Shortener.',
     long_description=README,
     url='https://github.com/ronaldgrn/django-link-shortener',
-    download_url='https://github.com/ronaldgrn/django-link-shortener/archive/0.2.tar.gz',
     author='Petronald Green',
     author_email='petronaldgreen@gmail.com',
     keywords=['url shortener', 'link shortener'],

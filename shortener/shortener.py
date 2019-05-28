@@ -19,13 +19,13 @@ def get_random(tries=0):
 def create(user, link):
     # check if user allowed to save link
     try:
-        # use user settings
+        # use user settings where set
         p = UrlProfile.objects.get(user=user)
-        enabled = p.enabled
-        max_urls = p.max_urls
-        max_concurrent = p.max_concurrent_urls
-        lifespan = p.default_lifespan
-        max_uses = p.default_max_uses
+        enabled = p.enabled if p.enabled is not None else getattr(settings, 'SHORTENER_ENABLED', True)
+        max_urls = p.max_urls if p.max_urls is not None else getattr(settings, 'SHORTENER_MAX_URLS', -1)
+        max_concurrent = p.max_concurrent_urls if p.max_concurrent_urls is not None else getattr(settings, 'SHORTENER_MAX_CONCURRENT', -1)
+        lifespan = p.default_lifespan if p.default_lifespan is not None else getattr(settings, 'SHORTENER_LIFESPAN', -1)
+        max_uses = p.default_max_uses if p.default_max_uses is not None else getattr(settings, 'SHORTENER_MAX_USES', -1)
 
     except UrlProfile.DoesNotExist:
         # Use defaults from settings
