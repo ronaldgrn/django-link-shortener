@@ -1,12 +1,11 @@
 Metadata-Version: 1.1
 Name: django-link-shortener
-Version: 0.3
-Summary: A simple Django Link Shortener.
+Version: 0.4
+Summary: A simple Django Url Shortener.
 Home-page: https://github.com/ronaldgrn/django-link-shortener
 Author: Petronald Green
 Author-email: petronaldgreen@gmail.com
 License: MIT License
-Download-URL: https://github.com/ronaldgrn/django-link-shortener/archive/0.2.tar.gz
 Description: =====================
         django-link-shortener
         =====================
@@ -21,6 +20,10 @@ Description: =====================
         .. image:: https://img.shields.io/pypi/v/django-link-shortener.svg
             :alt: PyPI
             :target: https://pypi.org/project/django-link-shortener/
+        
+        .. image:: https://coveralls.io/repos/github/ronaldgrn/django-link-shortener/badge.svg?branch=master
+            :target: https://coveralls.io/github/ronaldgrn/django-link-shortener?branch=master
+        
         
         django-link-shortener is a simple time and usage sensitive url shortening app.
         
@@ -139,6 +142,26 @@ Description: =====================
           SHORTENER_LIFESPAN = 600
           SHORTENER_MAX_USES = 1
         
+        
+        Changelog
+        ---------
+        
+        **v0.4**
+        
+        - Allow null values in UrlProfile; null fields will use global values
+        - str representation of UrlProfile in admin
+        - add user to str representation of UrlMap
+        - removed 256 char limit on full_url (Credit: Khaeshah)
+        
+        Upgrade Instructions
+        --------------------
+        
+        **0.3 -> 0.4**
+        
+        ::
+        
+          pip install django-link-shortener==0.4
+          python manage.py migrate
 Keywords: url shortener,link shortener
 Platform: UNKNOWN
 Classifier: Environment :: Web Environment

@@ -143,6 +143,7 @@ Changelog
 - Allow null values in UrlProfile; null fields will use global values
 - str representation of UrlProfile in admin
 - add user to str representation of UrlMap
+- removed 256 char limit on full_url (Credit: Khaeshah)
 
 Upgrade Instructions
 --------------------
