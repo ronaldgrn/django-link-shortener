@@ -29,14 +29,14 @@ Usage
     
 1. pip install django-link-shortener
    
-2. Add "shortener" to your INSTALLED_APPS setting like this::
+2. Add '`shortener'` to your INSTALLED_APPS setting::
 
     INSTALLED_APPS = [
         ...
         'shortener',
     ]
 
-3. Include the polls URLconf in your project urls.py like this::
+3. Include `shortener.urls` in your project urls.py::
 
     path('s/', include('shortener.urls')),
 
