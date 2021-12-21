@@ -20,7 +20,7 @@ class UrlMap(models.Model):
 
 class UrlProfile(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    enabled = models.NullBooleanField(default=True, null=True)
+    enabled = models.BooleanField(default=True, null=True)
     max_urls = models.IntegerField(default=-1, null=True, blank=True)
     max_concurrent_urls = models.IntegerField(default=100, null=True, blank=True)
     default_lifespan = models.IntegerField(default=120, null=True, blank=True)
