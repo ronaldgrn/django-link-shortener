@@ -2,9 +2,9 @@
 django-link-shortener
 =====================
 
-.. image:: https://travis-ci.org/ronaldgrn/django-link-shortener.svg?branch=master
-    :target: https://travis-ci.org/ronaldgrn/django-link-shortener
-    
+.. image:: https://github.com/ronaldgrn/django-link-shortener/actions/workflows/django-tests.yml/badge.svg
+    :target: https://github.com/ronaldgrn/django-link-shortener/actions/workflows/django-tests.yml
+
 .. image:: https://img.shields.io/pypi/l/django-link-shortener.svg
     :alt: PyPI - License
     :target: https://pypi.org/project/django-link-shortener/
