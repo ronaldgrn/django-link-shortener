@@ -17,4 +17,5 @@ shortener/views.py
 shortener/migrations/0001_initial.py
 shortener/migrations/0002_auto_20190528_1522.py
 shortener/migrations/0003_auto_20190528_1558.py
+shortener/migrations/0004_alter_urlprofile_enabled.py
 shortener/migrations/__init__.py
