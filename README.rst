@@ -101,7 +101,7 @@ SHORTENER_LENGTH
   
   Sets how many digits should be used for links. 
   Tries up to three times to generate a unique shortcode where
-  Each failure will result in length temporaily being increased by 1.
+  Each failure will result in length temporarily being increased by 1.
 
 SHORTENER_ENABLE_TEST_PATH
   Default: False
@@ -138,6 +138,12 @@ Internal temporary link usage (such as on nodeferret.com). 100 Temp links per mi
 Changelog
 ---------
 
+**v0.5**
+
+- Replaced NullBooleanField with BooleanField (Credit: sen-den)
+- Replaced travis-ci with github actions
+
+
 **v0.4**
 
 - Allow null values in UrlProfile; null fields will use global values
@@ -145,12 +151,13 @@ Changelog
 - add user to str representation of UrlMap
 - removed 256 char limit on full_url (Credit: Khaeshah)
 
+
 Upgrade Instructions
 --------------------
 
-**0.3 -> 0.4**
+**0.3 / 0.4 --> 0.5**
 
 ::
 
-  pip install django-link-shortener==0.4
+  pip install django-link-shortener==0.5
   python manage.py migrate
