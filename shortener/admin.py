@@ -24,6 +24,27 @@ class UrlMapAdmin(admin.ModelAdmin):
     )
 
 
+class UrlProfileAdmin(admin.ModelAdmin):
+    model = UrlProfile
+    raw_id_fields = (
+        "user",
+    )
+    list_display = (
+        "user",
+        "enabled",
+        "max_urls",
+        "max_concurrent_urls",
+        "default_lifespan",
+        "default_max_uses",
+    )
+    list_filter = (
+        "enabled",
+    )
+    search_fields = (
+        "user__username",
+    )
+
+
 # Register your models here.
 admin.site.register(UrlMap, UrlMapAdmin)
-admin.site.register(UrlProfile)
+admin.site.register(UrlProfile, UrlProfileAdmin)
