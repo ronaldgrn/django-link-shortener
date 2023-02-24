@@ -4,7 +4,6 @@ from django.conf import settings
 
 app_name = "shortener"
 urlpatterns = [
-    path('', views.expand, name="expand"),   # needed to reverse the path without attributes
     path('<link>/', views.expand, name="expand"),
 ]
 
