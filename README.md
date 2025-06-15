@@ -3,7 +3,7 @@
 [![image](https://github.com/ronaldgrn/django-link-shortener/actions/workflows/django-tests.yml/badge.svg)](https://github.com/ronaldgrn/django-link-shortener/actions/workflows/django-tests.yml)
 [![PyPI - License](https://img.shields.io/pypi/l/django-link-shortener.svg)](https://pypi.org/project/django-link-shortener/)
 [![PyPI](https://img.shields.io/pypi/v/django-link-shortener.svg)](https://pypi.org/project/django-link-shortener/)
-[![codecov](https://codecov.io/gh/ronaldgrn/django-link-shortener/graph/badge.svg?token=ELMHENJXSN)](https://codecov.io/gh/ronaldgrn/django-link-shortener)
+[![Codecov](https://img.shields.io/codecov/c/github/ronaldgrn/django-link-shortener?token=PQ19R9VGTP)](https://codecov.io/gh/ronaldgrn/django-link-shortener)
 
 
 django-link-shortener is a Django app for creating time-limited and usage-capped short URLs.
