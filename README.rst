@@ -13,8 +13,8 @@ django-link-shortener
     :alt: PyPI
     :target: https://pypi.org/project/django-link-shortener/
 
-.. image:: https://coveralls.io/repos/github/ronaldgrn/django-link-shortener/badge.svg?branch=master
-    :target: https://coveralls.io/github/ronaldgrn/django-link-shortener?branch=master
+.. image:: https://codecov.io/github/ronaldgrn/django-link-shortener/graph/badge.svg?token=ELMHENJXSN
+    :target: https://codecov.io/github/ronaldgrn/django-link-shortener
 
 
 django-link-shortener is a simple time and usage sensitive url shortening app.
