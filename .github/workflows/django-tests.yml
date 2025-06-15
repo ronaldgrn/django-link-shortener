@@ -2,9 +2,9 @@ name: Django Tests
 
 on:
   push:
-    branches: [ master ]
+    branches: [ main ]
   pull_request:
-    branches: [ master ]
+    branches: [ main ]
 
 env:
   DJANGO_SETTINGS_MODULE: tests.settings
