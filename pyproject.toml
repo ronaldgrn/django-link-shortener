@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "django-link-shortener"
-version = "0.5"
+version = "1.0.0-beta"
 dependencies = [
     "django>=3.2",
 ]
