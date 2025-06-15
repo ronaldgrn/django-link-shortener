@@ -72,58 +72,50 @@ Place in settings.py. Each setting can be overridden on a per-user basis
 using the UrlProfile section in the Django admin.
 
 
-SHORTENER_ENABLED
+**SHORTENER_ENABLED** (Default: True)
 
-:   Default: True
+Controls whether users without a shortener profile can create
+shortlinks.
 
-    Controls whether users without a shortener profile can create
-    shortlinks.
 
-SHORTENER_MAX_URLS
+**SHORTENER_MAX_URLS** (Default: -1)
 
-:   Default: -1
+Controls the default maximum limit of generated urls per account. -1
+sets infinite.
 
-    Controls the default maximum limit of generated urls per account. -1
-    sets infinite.
 
-SHORTENER_MAX_CONCURRENT
+**SHORTENER_MAX_CONCURRENT** (Default: -1)
 
-:   Default: -1
+Controls the default maximum limit of *concurrent* (active)
+generated urls per account. -1 sets infinite
 
-    Controls the default maximum limit of *concurrent* (active)
-    generated urls per account. -1 sets infinite
 
-SHORTENER_LIFESPAN
+**SHORTENER_LIFESPAN** (Default: -1)
 
-:   Default: -1
+Sets the default lifespan of links in seconds -1 sets infinite
 
-    Sets the default lifespan of links in seconds -1 sets infinite
 
-SHORTENER_MAX_USES
+**SHORTENER_MAX_USES** (Default: -1)
 
-:   Default: -1
+Sets the default amount of times a link can be followed -1 sets
+infinite
 
-    Sets the default amount of times a link can be followed -1 sets
-    infinite
 
-SHORTENER_LENGTH
+**SHORTENER_LENGTH** (Default: 5)
 
-:   Default: 5
+Note: Omitted from UrlProfile
 
-    Note: Omitted from UrlProfile
+Sets how many digits should be used for links. Tries up to three
+times to generate a unique shortcode where Each failure will result
+in length temporarily being increased by 1.
 
-    Sets how many digits should be used for links. Tries up to three
-    times to generate a unique shortcode where Each failure will result
-    in length temporarily being increased by 1.
 
-SHORTENER_ENABLE_TEST_PATH
+**SHORTENER_ENABLE_TEST_PATH** (Default: False)
 
-:   Default: False
+If true, creates shortlinks for logged in users at
+s/test/<url>/
 
-    If true, creates shortlinks for logged in users at
-    s/test/<url>/
-
-    The response is the shortcode to use used at s/<shortcode>/
+The response is the shortcode to use used at s/<shortcode>/
 
 
 ## Common Use Cases
