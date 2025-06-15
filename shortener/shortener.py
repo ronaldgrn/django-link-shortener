@@ -1,7 +1,9 @@
 from shortener.models import UrlMap, UrlProfile
 from django.conf import settings
 from django.db import IntegrityError
+from django.db.models import F
 from datetime import timedelta
+
 from django.utils import timezone
 
 import random
@@ -86,7 +88,13 @@ def expand(link):
     if timezone.now() > url.date_expired:
         raise PermissionError("shortlink expired")
 
-    url.usage_count += 1
-    url.save()
+    # Avoid a race condition by not using `+= 1` here, and using F() instead:
+    url.usage_count = F("usage_count") + 1
+    # Telling `save` to ONLY save changes to the counter. That's all we need
+    # to update, and so we'll save a bit of bandwidth by not sending ALL
+    # possible values back across the wire, just to update this field:
+    # See: https://docs.djangoproject.com/en/5.0/ref/models/instances/#specifying-which-fields-to-save
+    url.save(update_fields=["usage_count"])
+
     return url.full_url
 
