@@ -17,7 +17,13 @@ def get_random(tries=0):
     dictionary = "ABCDEFGHJKLMNOPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz234567890"
     return ''.join(random.choice(dictionary) for _ in range(length))
 
-
+def get_or_create(user, link):
+    try:
+        m = UrlMap.get(full_url=link);
+        return m.short_url;
+    except DoesNotExist:
+        create(user, link)
+    
 def create(user, link):
     # check if user allowed to save link
     try:
