@@ -21,7 +21,7 @@ def get_or_create(user, link):
     try:
         m = UrlMap.get(full_url=link);
         return m.short_url;
-    except DoesNotExist:
+    except UrlMap.DoesNotExist:
         create(user, link)
     
 def create(user, link):
