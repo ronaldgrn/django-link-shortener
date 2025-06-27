@@ -19,7 +19,7 @@ def get_random(tries=0):
 
 def get_or_create(user, link):
     try:
-        m = UrlMap.get(full_url=link);
+        m = UrlMap.objects.get(full_url=link);
         return m.short_url;
     except UrlMap.DoesNotExist:
         create(user, link)
