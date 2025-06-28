@@ -26,7 +26,7 @@ def get_or_create(user, link, refresh=False):
                      raise PermissionError("shortlink expired")
         return m.short_url;
     except UrlMap.DoesNotExist:
-        create(user, link)
+        return create(user, link)
     
 def create(user, link):
     # check if user allowed to save link
