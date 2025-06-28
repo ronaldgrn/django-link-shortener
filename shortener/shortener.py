@@ -20,8 +20,7 @@ def get_or_create(user, link, refresh=False):
     try:
         m = UrlMap.objects.get(full_url=link);
         if refresh == True and m.lifespan != -1:
-            if ( m.date_created + timezone.timedelta(seconds=m.lifespan) > timezone.now()
-                 or timezone.now() > m.date_expired ):
+            if timezone.now() > m.date_expired:
                      # m.delete() # should really delete the expired shortlinks at some point
                                   # this seems as good a place as any...
                      raise PermissionError("shortlink expired")
