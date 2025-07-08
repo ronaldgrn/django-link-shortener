@@ -2,10 +2,9 @@ from shortener.models import UrlMap, UrlProfile
 from django.conf import settings
 from django.db import IntegrityError
 from django.db.models import F
-from datetime import datetime, timedelta
-
 from django.utils import timezone
 
+from datetime import datetime, timedelta
 import random
 
 
@@ -17,7 +16,18 @@ def get_random(tries=0):
     dictionary = "ABCDEFGHJKLMNOPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz234567890"
     return ''.join(random.choice(dictionary) for _ in range(length))
 
-
+def get_or_create(user, link, refresh=False):
+    try:
+        m = UrlMap.objects.get(full_url=link);
+        if refresh == True and m.lifespan != -1:
+            if timezone.now() > m.date_expired:
+                     # m.delete() # should really delete the expired shortlinks at some point
+                                  # this seems as good a place as any...
+                     raise PermissionError("shortlink expired")
+        return m.short_url;
+    except UrlMap.DoesNotExist:
+        return create(user, link)
+    
 def create(user, link):
     # check if user allowed to save link
     try:
