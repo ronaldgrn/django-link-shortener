@@ -8,17 +8,17 @@ from django.utils import timezone
 
 import random
 
+# Removed l, I, 1
+default_shortener_dictionary = "ABCDEFGHJKLMNOPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz234567890"
 
-def get_random(tries=0):
+def get_random(tries=0, dictionary=default_shortener_dictionary):
     length = getattr(settings, 'SHORTENER_LENGTH', 5)
     length += tries
 
-    # Removed l, I, 1
-    dictionary = "ABCDEFGHJKLMNOPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz234567890"
     return ''.join(random.choice(dictionary) for _ in range(length))
 
 
-def create(user, link):
+def create(user, link, dictionary=default_shortener_dictionary):
     # check if user allowed to save link
     try:
         # use user settings where set
@@ -64,7 +64,7 @@ def create(user, link):
     # Each time increase the number of allowed characters
     for tries in range(3):
         try:
-            short = get_random(tries)
+            short = get_random(tries, dictionary)
             m = UrlMap(user=user, full_url=link, short_url=short, max_count=max_uses, date_expired=expiry_date)
             m.save()
             return m.short_url

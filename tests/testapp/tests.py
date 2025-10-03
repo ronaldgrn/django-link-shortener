@@ -14,6 +14,14 @@ class UrlMapTestCase(TestCase):
         url = shortener.create(self.bob, "http://devget.net/")
         self.assertEqual(shortener.expand(url), "http://devget.net/")
 
+    def test_url_creation_with_custom_dictionary(self):
+        url = shortener.create(self.bob, "http://devget.net/", "a")
+        self.assertEqual(url, "aaaaa")
+
+        url = shortener.create(self.bob, "http://devget.net/", "ab")
+        for digit in url:
+            self.assertIn(digit, "ab")
+
     def test_invalid_link(self):
         url = shortener.create(self.bob, "http://devget.net/")
         self.assertEqual(shortener.expand(url), "http://devget.net/")  # good shortlink

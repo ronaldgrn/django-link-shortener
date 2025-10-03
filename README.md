@@ -40,7 +40,7 @@ django-link-shortener is a Django app for creating time-limited and usage-capped
 
 4.  Run `python manage.py migrate` to create the shortener models.
 
-5. Use `shortener.create(user, link)` to generate a shortcode.
+5.  Use `shortener.create(user, link)` to generate a shortcode.
 
     ```python
     from shortener import shortener
@@ -48,6 +48,17 @@ django-link-shortener is a Django app for creating time-limited and usage-capped
     user = User.objects.first()
     shortener.create(user, "https://example.com")
     ```
+
+    You can also pass a string representing a set of  characters, if you need control over which characters are allowed in a shortcode:
+
+    ```python
+    from shortener import shortener
+    
+    user = User.objects.first()
+    shortener.create(user, "https://example.com", "aeiou0123456789")
+    ```
+    The generated shortcode will only contain lowercase vowels and numeric digits.
+
 
 6. To expand the shortcode use `shortener.expand(shorlink_id)`, 
    or visit `http://127.0.0.1:8000/s/<shortcode>/`.
