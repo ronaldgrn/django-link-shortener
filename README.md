@@ -121,6 +121,12 @@ If true, creates shortlinks on authenticated requests to `s/test/<url>/`
 and returns a shortcode.
 
 
+**SHORTENER_DICTIONARY**  
+Default: `"ABCDEFGHJKLMNOPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz234567890"`
+
+Sets which digits can be used to create links. The default value includes uppercase letters, lowercase letters, digits, and excludes characters that might cause confusion (l, I, 1, and 0).
+
+
 ## Common Use Cases
 
 goo.gl type usage (default). Unlimited concurrent links for an unlimited
