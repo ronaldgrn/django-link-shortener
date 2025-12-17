@@ -149,6 +149,9 @@ SHORTENER_MAX_USES = 1
 
 ## Changelog
 
+For versions > v0.5 see [Release Notes](https://github.com/ronaldgrn/django-link-shortener/releases)
+
+
 **v0.5**
 
 -   Replaced NullBooleanField with BooleanField (Credit: sen-den)
