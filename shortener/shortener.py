@@ -8,13 +8,14 @@ from django.utils import timezone
 
 import random
 
+# Removed l, I, 1
+default_shortener_dictionary = "ABCDEFGHJKLMNOPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz234567890"
 
 def get_random(tries=0):
     length = getattr(settings, 'SHORTENER_LENGTH', 5)
     length += tries
 
-    # Removed l, I, 1
-    dictionary = "ABCDEFGHJKLMNOPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz234567890"
+    dictionary = getattr(settings, 'SHORTENER_DICTIONARY', default_shortener_dictionary)
     return ''.join(random.choice(dictionary) for _ in range(length))
 
 
