@@ -2,10 +2,9 @@ from shortener.models import UrlMap, UrlProfile
 from django.conf import settings
 from django.db import IntegrityError
 from django.db.models import F
-from datetime import datetime, timedelta
-
 from django.utils import timezone
 
+from datetime import datetime, timedelta
 import random
 
 
@@ -17,7 +16,18 @@ def get_random(tries=0):
     dictionary = "ABCDEFGHJKLMNOPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz234567890"
     return ''.join(random.choice(dictionary) for _ in range(length))
 
-
+def get_or_create(user, link, refresh=False):
+    try:
+        m = UrlMap.objects.get(full_url=link);
+        if refresh == True and m.lifespan != -1:
+            if timezone.now() > m.date_expired:
+                     # m.delete() # should really delete the expired shortlinks at some point
+                                  # this seems as good a place as any...
+                     raise PermissionError("shortlink expired")
+        return m.short_url;
+    except UrlMap.DoesNotExist:
+        return create(user, link)
+    
 def create(user, link):
     # check if user allowed to save link
     try:
@@ -29,7 +39,7 @@ def create(user, link):
         lifespan = p.default_lifespan if p.default_lifespan is not None else getattr(settings, 'SHORTENER_LIFESPAN', -1)
         max_uses = p.default_max_uses if p.default_max_uses is not None else getattr(settings, 'SHORTENER_MAX_USES', -1)
 
-    except UrlProfile.DoesNotExist:
+    except UrlProfile.DoesNotExist, TypeError:
         # Use defaults from settings
         enabled = getattr(settings, 'SHORTENER_ENABLED', True)
         max_urls = getattr(settings, 'SHORTENER_MAX_URLS', -1)
@@ -51,14 +61,15 @@ def create(user, link):
         expiry_date = safe_max_date
 
     # Ensure user has not met max_urls quota
-    if max_urls != -1:
-        if UrlMap.objects.filter(user=user).count() >= max_urls:
-            raise PermissionError("url quota exceeded")
-
-    # Ensure user has not met concurrent urls quota
-    if max_concurrent != -1:
-        if UrlMap.objects.filter(user=user, date_expired__gt=timezone.now()).count() >= max_concurrent:
-            raise PermissionError("concurrent quota exceeded")
+    if user != None:
+        if max_urls != -1:
+            if UrlMap.objects.filter(user=user).count() >= max_urls:
+                raise PermissionError("url quota exceeded")
+    
+        # Ensure user has not met concurrent urls quota
+        if max_concurrent != -1:
+            if UrlMap.objects.filter(user=user, date_expired__gt=timezone.now()).count() >= max_concurrent:
+                raise PermissionError("concurrent quota exceeded")
 
     # Try up to three times to generate a random number without duplicates.
     # Each time increase the number of allowed characters
